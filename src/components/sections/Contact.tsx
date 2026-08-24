@@ -1,52 +1,30 @@
 "use client";
 
-import { useState } from "react";
 import { motion } from "framer-motion";
-import {
-  FiMail,
-  FiGithub,
-  FiLinkedin,
-  FiTwitter,
-  FiSend,
-} from "react-icons/fi";
+import { useForm, ValidationError } from "@formspree/react";
+import { FiMail, FiGithub, FiLinkedin, FiSend } from "react-icons/fi";
+import { FaXTwitter } from "react-icons/fa6";
 import { siteConfig } from "@/data/portfolio";
 import SectionWrapper from "@/components/ui/SectionWrapper";
 
-type FormState = "idle" | "sending" | "success" | "error";
-
 export default function Contact() {
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
-  const [status, setStatus] = useState<FormState>("idle");
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setStatus("sending");
-    // ── Replace this with your preferred form service (Formspree, EmailJS, etc.) ──
-    try {
-      await new Promise((r) => setTimeout(r, 1000)); // stub delay
-      setStatus("success");
-      setForm({ name: "", email: "", message: "" });
-    } catch {
-      setStatus("error");
-    }
-  };
+  const [state, handleSubmit] = useForm("xwledvva");
 
   const socials = [
-    { Icon: FiGithub, href: siteConfig.github, label: "GitHub" },
-    { Icon: FiLinkedin, href: siteConfig.linkedin, label: "LinkedIn" },
-    { Icon: FiTwitter, href: siteConfig.twitter, label: "Twitter" },
+    { Icon: FiGithub,   href: siteConfig.github,   label: "GitHub" },
+    { Icon: FiLinkedin, href: siteConfig.linkedin,  label: "LinkedIn" },
+    { Icon: FaXTwitter, href: siteConfig.twitter,   label: "X" },
   ];
 
   const inputCls =
     "w-full rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-3 text-sm text-gray-900 dark:text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/50 transition";
 
+  const errorCls = "text-xs text-red-500 -mt-2";
+
   return (
     <SectionWrapper id="contact" label="Reach Out" heading="Let's Build Something Great">
       <div className="grid md:grid-cols-2 gap-12 max-w-4xl mx-auto">
+
         {/* Left – info */}
         <motion.div
           initial={{ opacity: 0, x: -20 }}
@@ -82,60 +60,73 @@ export default function Contact() {
         </motion.div>
 
         {/* Right – form */}
-        <motion.form
+        <motion.div
           initial={{ opacity: 0, x: 20 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
-          onSubmit={handleSubmit}
-          className="flex flex-col gap-4"
         >
-          <input
-            name="name"
-            type="text"
-            placeholder="Your Name"
-            required
-            value={form.name}
-            onChange={handleChange}
-            className={inputCls}
-          />
-          <input
-            name="email"
-            type="email"
-            placeholder="Your Email"
-            required
-            value={form.email}
-            onChange={handleChange}
-            className={inputCls}
-          />
-          <textarea
-            name="message"
-            rows={5}
-            placeholder="Your Message"
-            required
-            value={form.message}
-            onChange={handleChange}
-            className={inputCls}
-          />
-          <button
-            type="submit"
-            disabled={status === "sending"}
-            className="btn-primary justify-center disabled:opacity-60 disabled:cursor-not-allowed"
-          >
-            <FiSend size={15} />
-            {status === "sending" ? "Sending…" : "Send Message"}
-          </button>
+          {state.succeeded ? (
+            <div className="flex flex-col items-center justify-center h-full gap-4 text-center py-12">
+              <div className="w-14 h-14 rounded-full bg-emerald-100 dark:bg-emerald-950/50 flex items-center justify-center">
+                <svg className="w-7 h-7 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <p className="text-lg font-semibold text-gray-900 dark:text-white">Message sent!</p>
+              <p className="text-sm text-gray-500 dark:text-gray-400">
+                Thanks for reaching out. I&apos;ll get back to you soon.
+              </p>
+            </div>
+          ) : (
+            <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+              {/* Name */}
+              <input
+                id="name"
+                name="name"
+                type="text"
+                placeholder="Your Name"
+                required
+                className={inputCls}
+              />
+              <ValidationError field="name" prefix="Name" errors={state.errors} className={errorCls} />
 
-          {status === "success" && (
-            <p className="text-sm text-green-600 dark:text-green-400 text-center">
-              ✓ Message sent! I&apos;ll get back to you soon.
-            </p>
+              {/* Email */}
+              <input
+                id="email"
+                name="email"
+                type="email"
+                placeholder="Your Email"
+                required
+                className={inputCls}
+              />
+              <ValidationError field="email" prefix="Email" errors={state.errors} className={errorCls} />
+
+              {/* Message */}
+              <textarea
+                id="message"
+                name="message"
+                rows={5}
+                placeholder="Your Message"
+                required
+                className={inputCls}
+              />
+              <ValidationError field="message" prefix="Message" errors={state.errors} className={errorCls} />
+
+              <button
+                type="submit"
+                disabled={state.submitting}
+                className="btn-primary justify-center disabled:opacity-60 disabled:cursor-not-allowed"
+              >
+                <FiSend size={15} />
+                {state.submitting ? "Sending…" : "Send Message"}
+              </button>
+
+              {/* Top-level form errors */}
+              <ValidationError errors={state.errors} className={errorCls + " text-center"} />
+            </form>
           )}
-          {status === "error" && (
-            <p className="text-sm text-red-500 text-center">
-              Something went wrong. Please try again.
-            </p>
-          )}
-        </motion.form>
+        </motion.div>
+
       </div>
     </SectionWrapper>
   );
