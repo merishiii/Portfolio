@@ -58,16 +58,12 @@ export default function Resume() {
           </a>
           <a
             href={siteConfig.resumeUrl}
-            download
+            download="Rishabh_Pathak_Resume.pdf"
             className="btn-primary"
           >
             <FiDownload size={15} /> Download PDF
           </a>
         </div>
-
-        <p className="text-xs text-gray-400">
-          Place your PDF at <code className="font-mono bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded">/public/resume.pdf</code>
-        </p>
       </motion.div>
     </SectionWrapper>
   );
