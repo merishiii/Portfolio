@@ -15,7 +15,7 @@ export const siteConfig = {
   resumeUrl: "/resume.pdf", // place your PDF in /public/resume.pdf
   githubUsername: "merishiii",
   leetcodeUsername: "Rishabh_pathak",
-  avatarUrl: "https://avatars.githubusercontent.com/merishiii?v=4",
+  avatarUrl: "/avatar.png",
 };
 
 export const aboutData = {
