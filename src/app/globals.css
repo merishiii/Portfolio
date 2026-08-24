@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-inter: "Inter", system-ui, sans-serif;
+    --font-mono: "JetBrains Mono", "Fira Code", monospace;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-white text-gray-900 transition-colors duration-300;
+  }
+
+  .dark body {
+    @apply bg-gray-950 text-gray-100;
+  }
+}
+
+@layer components {
+  .section-heading {
+    @apply text-3xl font-bold tracking-tight mb-2;
+  }
+
+  .section-subheading {
+    @apply text-gray-500 dark:text-gray-400 mb-10 text-base;
+  }
+
+  .card {
+    @apply rounded-2xl border border-gray-200 dark:border-gray-800
+           bg-white dark:bg-gray-900 p-6 shadow-sm
+           hover:shadow-md transition-shadow duration-200;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center gap-2 px-5 py-2.5 rounded-xl
+           bg-primary text-white font-medium text-sm
+           hover:bg-primary-dark transition-colors duration-150;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center gap-2 px-5 py-2.5 rounded-xl
+           border border-gray-300 dark:border-gray-700 text-sm font-medium
+           hover:border-primary hover:text-primary transition-colors duration-150;
+  }
+}
