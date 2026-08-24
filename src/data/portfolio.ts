@@ -146,32 +146,46 @@ export const projects = [
 
 export const certifications = [
   {
+    name: "Claude Certified Developer – Foundations",
+    issuer: "ANTHOPIC",
+    date: "August 23, 2026",
+    credentialUrl: "https://www.credly.com/badges/8bf7d60f-b898-4188-a4c2-b04c93ce8a55",
+    badgeUrl: "https://www.credly.com/badges/8bf7d60f-b898-4188-a4c2-b04c93ce8a55",
+  },
+  {
     name: "AWS Certified Developer – Associate",
     issuer: "Amazon Web Services",
-    date: "2024",
-    credentialUrl: "#",
-    badgeUrl: "",
+    date: "June 14, 2026",
+    credentialUrl: "https://www.credly.com/badges/a7f4804d-ccbe-4554-9344-334d7f6f8aa7",
+    badgeUrl: "https://www.credly.com/badges/a7f4804d-ccbe-4554-9344-334d7f6f8aa7",
   },
   {
-    name: "AWS Certified SysOps Administrator – Associate",
+    name: "AWS Certified SysOps Engineer – Associate",
     issuer: "Amazon Web Services",
-    date: "2024",
+    date: "January 10, 2026",
+    credentialUrl: "https://www.credly.com/badges/0bd3b881-692d-4005-8200-41f5b43eaa9b",
+    badgeUrl: "https://www.credly.com/badges/0bd3b881-692d-4005-8200-41f5b43eaa9b",
+  },
+  {
+    name: "Full Stack with Javascript (MERN Stack)",
+    issuer: "Fynd Academy",
+    date: "January 31, 2024",
     credentialUrl: "#",
     badgeUrl: "",
   },
   {
-    name: "Cloud Certified Developer",
-    issuer: "Cloud Certification Body",
-    date: "2023",
-    credentialUrl: "#",
-    badgeUrl: "",
+    name: "Cybersecurity Essentials",
+    issuer: "Cisco",
+    date: "August 27, 2023",
+    credentialUrl: "https://www.credly.com/badges/70fd4bb9-d17c-466b-be96-6bb6e2f98da9/print",
+    badgeUrl: "https://www.credly.com/badges/70fd4bb9-d17c-466b-be96-6bb6e2f98da9/print",
   },
-  {
-    name: "MERN Full Stack Developer",
-    issuer: "Find Academy",
-    date: "2023",
-    credentialUrl: "#",
-    badgeUrl: "",
+   {
+    name: "Java Full Stack ",
+    issuer: "Newton School",
+    date: "December 22, 2022",
+    credentialUrl: "https://my.newtonschool.co/course/7l4noyx7aa/certificate/qzjgeq238mlg/verify",
+    badgeUrl: "https://my.newtonschool.co/course/7l4noyx7aa/certificate/qzjgeq238mlg/verify",
   },
 ];
 

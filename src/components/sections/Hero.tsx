@@ -253,7 +253,7 @@ export default function Hero() {
           transition={{ delay: 0.15, duration: 0.4 }}
           className="text-primary font-mono text-sm mb-3 tracking-widest uppercase"
         >
-          Hello, World 👋
+          FULL-STACK DEVELOPER | PROBLEM SOLVER 🚀
         </motion.p>
 
         {/* Name */}
