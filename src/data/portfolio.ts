@@ -10,7 +10,7 @@ export const siteConfig = {
   email: "your.email@example.com", // replace with your real email
   location: "India",
   github: "https://github.com/merishiii",
-  linkedin: "https://linkedin.com/in/yourusername", // replace with your real LinkedIn
+  linkedin: "https://www.linkedin.com/in/rishabh-pathak-465b7420a",
   twitter: "https://twitter.com/yourusername",      // replace or remove
   resumeUrl: "/resume.pdf", // place your PDF in /public/resume.pdf
   githubUsername: "merishiii",
