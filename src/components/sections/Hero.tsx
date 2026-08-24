@@ -96,11 +96,11 @@ export default function Hero() {
           transition={{ delay: 0.6 }}
           className="flex flex-wrap justify-center gap-4 mb-12"
         >
-          <a href="#contact" className="btn-primary">
-            Get in Touch
+          <a href="#projects" className="btn-primary">
+            View My Work
           </a>
-          <a href="#resume" className="btn-outline">
-            View Resume
+          <a href="#contact" className="btn-outline">
+            Contact Me
           </a>
         </motion.div>
 

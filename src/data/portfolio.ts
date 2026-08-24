@@ -3,118 +3,186 @@
 // ─────────────────────────────────────────────────────────────
 
 export const siteConfig = {
-  name: "Your Name",
-  title: "Full-Stack Developer",
+  name: "Rishabh Pathak",
+  title: "Full-Stack Java Developer",
   description:
-    "Personal portfolio of Your Name — building scalable web applications with modern technologies.",
-  email: "hello@yourname.dev",
-  location: "City, Country",
+    "Building scalable, reliable, and modern web applications using Java, Spring Boot, React, REST APIs, and cloud technologies.",
+  email: "your.email@example.com", // replace with your real email
+  location: "India",
   github: "https://github.com/merishiii",
-  linkedin: "https://linkedin.com/in/yourusername",
-  twitter: "https://twitter.com/yourusername",
+  linkedin: "https://linkedin.com/in/yourusername", // replace with your real LinkedIn
+  twitter: "https://twitter.com/yourusername",      // replace or remove
   resumeUrl: "/resume.pdf", // place your PDF in /public/resume.pdf
   githubUsername: "merishiii",
   leetcodeUsername: "Rishabh_pathak",
-  avatarUrl: "https://avatars.githubusercontent.com/u/0?v=4", // replace with real URL
+  avatarUrl: "https://avatars.githubusercontent.com/merishiii?v=4",
 };
 
 export const aboutData = {
-  bio: `Hi! I'm Your Name, a passionate full-stack developer with X years of experience
-  building web applications. I love crafting clean, user-centric products and solving
-  complex problems with elegant code. When I'm not coding, you'll find me hiking,
-  reading, or contributing to open source.`,
+  bio: `I'm a Full-Stack Java Developer with a strong foundation in computer science and a passion for building scalable, reliable, and user-focused applications.
+
+My primary focus is on Java backend development, Spring Boot, RESTful APIs, databases, and modern frontend technologies. I also have hands-on exposure to cloud technologies and AWS, with certifications covering AWS development and cloud operations.
+
+I enjoy solving complex technical problems, learning new technologies, and transforming ideas into clean, maintainable, and production-ready applications.
+
+Currently, I'm working as an Application Developer – Java & Web Technologies at IBM, where I'm strengthening my expertise in enterprise application development, Java, web technologies, software engineering practices, and Agile methodologies.`,
   highlights: [
-    "X+ years of professional experience",
-    "Contributed to Y open-source projects",
-    "Delivered Z production applications",
-    "Passionate about developer experience & performance",
+    "Application Developer at IBM — Java & Web Technologies",
+    "AWS Certified Developer – Associate",
+    "AWS Certified SysOps Administrator – Associate",
+    "Full-Stack projects: Spring Boot + React + MySQL",
+    "Strong foundation in Data Structures & Algorithms",
+    "Passionate about Microservices & System Design",
   ],
 };
 
 export const skills = [
   {
-    category: "Frontend",
-    items: ["React", "Next.js", "TypeScript", "Tailwind CSS", "HTML/CSS"],
+    category: "Backend Development",
+    items: [
+      "Java", "Spring Boot", "Spring Framework", "RESTful APIs",
+      "Hibernate", "JPA", "JDBC", "Microservices", "Maven",
+      "OOP", "Collections Framework", "Exception Handling", "Multithreading",
+    ],
   },
   {
-    category: "Backend",
-    items: ["Node.js", "Express", "Python", "FastAPI", "REST APIs"],
+    category: "Frontend Development",
+    items: [
+      "HTML5", "CSS3", "JavaScript", "React.js",
+      "Responsive Web Design", "REST API Integration",
+    ],
   },
   {
     category: "Database",
-    items: ["PostgreSQL", "MongoDB", "Redis", "Prisma"],
+    items: [
+      "MySQL", "MongoDB", "SQL", "Database Design",
+      "CRUD Operations", "Joins & Queries",
+    ],
   },
   {
-    category: "DevOps & Cloud",
-    items: ["Docker", "GitHub Actions", "AWS", "Vercel", "Linux"],
+    category: "Cloud & DevOps",
+    items: [
+      "Amazon Web Services (AWS)", "AWS EC2", "AWS S3", "AWS IAM",
+      "AWS Lambda", "AWS CloudWatch", "Cloud Fundamentals",
+      "Git", "GitHub", "Maven",
+    ],
   },
   {
     category: "Tools",
-    items: ["Git", "VS Code", "Figma", "Postman", "Jira"],
+    items: [
+      "IntelliJ IDEA", "Eclipse", "Visual Studio Code",
+      "Postman", "Git", "GitHub", "Linux",
+    ],
+  },
+  {
+    category: "Computer Science",
+    items: [
+      "Data Structures & Algorithms", "Object-Oriented Programming",
+      "DBMS", "Operating Systems", "Computer Networks",
+      "SDLC", "Functional Testing", "Non-Functional Testing",
+    ],
   },
 ];
 
 export const experience = [
   {
-    role: "Senior Software Engineer",
-    company: "Awesome Corp",
-    period: "Jan 2023 – Present",
-    location: "Remote",
+    role: "Application Developer – Java & Web Technologies",
+    company: "IBM",
+    period: "July 2026 – Present",
+    location: "India",
     description:
-      "Led development of a microservices platform serving 500k+ users. Reduced API latency by 40% through caching and query optimisation.",
-    tech: ["Next.js", "Node.js", "PostgreSQL", "Redis", "Docker"],
+      "Working with Java and web technologies to develop and maintain enterprise applications. Applying object-oriented programming and software engineering principles. Participating in development, testing, debugging, and troubleshooting. Collaborating in an Agile environment to build scalable, maintainable, and reliable software solutions.",
+    tech: ["Java", "Spring Boot", "REST APIs", "Web Technologies", "Agile", "Git"],
+  },
+];
+
+export const projects = [
+  {
+    title: "Full-Stack Employee Management System",
+    description:
+      "A full-stack employee management application designed to manage employee information through a modern web interface and RESTful backend.",
+    tech: ["Java", "Spring Boot", "React.js", "MySQL", "REST API"],
+    features: [
+      "Employee CRUD operations",
+      "RESTful APIs using Spring Boot",
+      "MySQL database integration",
+      "React.js frontend with API integration",
+      "Input validation & exception handling",
+      "Layered application architecture",
+    ],
+    github: "https://github.com/merishiii",
   },
   {
-    role: "Software Engineer",
-    company: "Startup Inc.",
-    period: "Jun 2021 – Dec 2022",
-    location: "New York, NY",
+    title: "E-Commerce Web Application",
     description:
-      "Built and shipped 3 full-stack features end-to-end. Collaborated with designers to implement pixel-perfect UIs.",
-    tech: ["React", "FastAPI", "MongoDB", "AWS"],
+      "A full-stack e-commerce application demonstrating product management, user functionality, shopping cart operations, and order processing.",
+    tech: ["Java", "Spring Boot", "React.js", "MySQL"],
+    features: [
+      "User authentication",
+      "Product management",
+      "Shopping cart & order management",
+      "REST APIs with database integration",
+      "Responsive UI",
+      "Backend business logic",
+    ],
+    github: "https://github.com/merishiii",
   },
   {
-    role: "Junior Developer",
-    company: "Agency XYZ",
-    period: "Jan 2020 – May 2021",
-    location: "San Francisco, CA",
+    title: "Java REST API Application",
     description:
-      "Developed responsive landing pages and internal dashboards for 10+ client projects.",
-    tech: ["HTML", "CSS", "JavaScript", "WordPress"],
+      "A backend-focused application demonstrating REST API development, business logic, database operations, validation, and exception handling.",
+    tech: ["Java", "Spring Boot", "MySQL", "Postman"],
+    features: [
+      "RESTful API development",
+      "CRUD operations",
+      "MySQL integration",
+      "Request validation & exception handling",
+      "API testing with Postman",
+      "Layered architecture",
+    ],
+    github: "https://github.com/merishiii",
   },
 ];
 
 export const certifications = [
   {
-    name: "AWS Certified Solutions Architect – Associate",
+    name: "AWS Certified Developer – Associate",
     issuer: "Amazon Web Services",
     date: "2024",
     credentialUrl: "#",
     badgeUrl: "",
   },
   {
-    name: "Google Professional Cloud Developer",
-    issuer: "Google Cloud",
+    name: "AWS Certified SysOps Administrator – Associate",
+    issuer: "Amazon Web Services",
+    date: "2024",
+    credentialUrl: "#",
+    badgeUrl: "",
+  },
+  {
+    name: "Cloud Certified Developer",
+    issuer: "Cloud Certification Body",
     date: "2023",
     credentialUrl: "#",
     badgeUrl: "",
   },
   {
-    name: "Meta Front-End Developer Certificate",
-    issuer: "Meta / Coursera",
-    date: "2022",
+    name: "MERN Full Stack Developer",
+    issuer: "Find Academy",
+    date: "2023",
     credentialUrl: "#",
     badgeUrl: "",
   },
 ];
 
 export const navLinks = [
-  { label: "About", href: "#about" },
-  { label: "Skills", href: "#skills" },
-  { label: "Experience", href: "#experience" },
+  { label: "About",          href: "#about" },
+  { label: "Skills",         href: "#skills" },
+  { label: "Experience",     href: "#experience" },
+  { label: "Projects",       href: "#projects" },
   { label: "Certifications", href: "#certifications" },
-  { label: "GitHub", href: "#github" },
-  { label: "LeetCode", href: "#leetcode" },
-  { label: "Resume", href: "#resume" },
-  { label: "Contact", href: "#contact" },
+  { label: "GitHub",         href: "#github" },
+  { label: "LeetCode",       href: "#leetcode" },
+  { label: "Resume",         href: "#resume" },
+  { label: "Contact",        href: "#contact" },
 ];

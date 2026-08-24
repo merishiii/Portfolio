@@ -45,7 +45,7 @@ export default function Contact() {
     "w-full rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-3 text-sm text-gray-900 dark:text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/50 transition";
 
   return (
-    <SectionWrapper id="contact" label="Reach Out" heading="Get In Touch">
+    <SectionWrapper id="contact" label="Reach Out" heading="Let's Build Something Great">
       <div className="grid md:grid-cols-2 gap-12 max-w-4xl mx-auto">
         {/* Left – info */}
         <motion.div
@@ -55,9 +55,9 @@ export default function Contact() {
           className="flex flex-col justify-center gap-6"
         >
           <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-            I&apos;m always open to interesting projects, collaborations, or just a
-            friendly chat. Drop me a message and I&apos;ll get back to you as soon as
-            possible!
+            I&apos;m always interested in exploring new technologies, building impactful
+            applications, and connecting with people who share a passion for software
+            development. Let&apos;s connect and build something meaningful together.
           </p>
           <a
             href={`mailto:${siteConfig.email}`}

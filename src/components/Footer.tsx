@@ -44,7 +44,7 @@ export default function Footer() {
         </div>
 
         <p className="mt-8 text-center text-xs text-gray-400">
-          © {year} {siteConfig.name}. Built with Next.js & Tailwind CSS.
+          © {year} Rishabh Pathak. Built with passion and code.
         </p>
       </div>
     </footer>
