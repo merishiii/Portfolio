@@ -7,11 +7,11 @@ export const siteConfig = {
   title: "Full-Stack Java Developer",
   description:
     "Building scalable, reliable, and modern web applications using Java, Spring Boot, React, REST APIs, and cloud technologies.",
-  email: "your.email@example.com", // replace with your real email
+  email: "rishabhpathak620@gmail.com",
   location: "India",
   github: "https://github.com/merishiii",
   linkedin: "https://www.linkedin.com/in/rishabh-pathak-465b7420a",
-  twitter: "https://twitter.com/yourusername",      // replace or remove
+  twitter: "https://x.com/me_rishiii",
   resumeUrl: "/resume.pdf", // place your PDF in /public/resume.pdf
   githubUsername: "merishiii",
   leetcodeUsername: "Rishabh_pathak",
