@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Purple circle background -->
+  <circle cx="256" cy="256" r="256" fill="#3d2f7f"/>
+
+  <!-- Monitor body -->
+  <rect x="178" y="148" width="220" height="148" rx="8" ry="8"
+        fill="none" stroke="#f0956a" stroke-width="12" stroke-linejoin="round"/>
+  <!-- Monitor neck -->
+  <line x1="256" y1="296" x2="256" y2="330"
+        stroke="#f0956a" stroke-width="12" stroke-linecap="round"/>
+  <!-- Monitor base -->
+  <line x1="220" y1="330" x2="292" y2="330"
+        stroke="#f0956a" stroke-width="12" stroke-linecap="round"/>
+
+  <!-- Code brackets </> on screen -->
+  <!-- < -->
+  <polyline points="248,192 228,222 248,252"
+            fill="none" stroke="#3bbfbf" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- > -->
+  <polyline points="268,192 288,222 268,252"
+            fill="none" stroke="#3bbfbf" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- / -->
+  <line x1="261" y1="188" x2="249" y2="256"
+        stroke="#3bbfbf" stroke-width="9" stroke-linecap="round"/>
+
+  <!-- Magnifying glass handle -->
+  <line x1="193" y1="285" x2="162" y2="316"
+        stroke="#f0956a" stroke-width="13" stroke-linecap="round"/>
+  <!-- Magnifying glass circle -->
+  <circle cx="211" cy="267" r="34"
+          fill="none" stroke="#f0956a" stroke-width="12"/>
+  <!-- Inner lens teal circle -->
+  <circle cx="211" cy="267" r="18"
+          fill="none" stroke="#3bbfbf" stroke-width="10"/>
+</svg>

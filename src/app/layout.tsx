@@ -23,7 +23,10 @@ export const metadata: Metadata = {
   title: `${siteConfig.name} | ${siteConfig.title}`,
   description: siteConfig.description,
   icons: {
-    icon: "/favicon.ico",
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon.ico", sizes: "32x32",  type: "image/x-icon" },
+    ],
     apple: "/apple-touch-icon.png",
   },
   openGraph: {
