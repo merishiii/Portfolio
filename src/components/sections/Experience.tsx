@@ -17,16 +17,26 @@ export default function Experience() {
         {experience.map((job, i) => (
           <motion.div
             key={i}
-            initial={{ opacity: 0, x: -16 }}
+            initial={{ opacity: 0, x: -24 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.4, delay: i * 0.1 }}
+            transition={{ duration: 0.5, delay: i * 0.1, ease: "easeOut" }}
             className="relative"
           >
-            {/* Timeline dot */}
-            <span className="absolute -left-[2.85rem] top-1 w-4 h-4 rounded-full bg-primary ring-4 ring-white dark:ring-gray-950" />
+            {/* Pulsing timeline dot */}
+            <div className="absolute -left-[2.85rem] top-1">
+              <motion.span
+                className="block w-4 h-4 rounded-full bg-primary ring-4 ring-white dark:ring-gray-950"
+                animate={{ boxShadow: ["0 0 0 0 rgba(99,102,241,0.4)", "0 0 0 8px rgba(99,102,241,0)", "0 0 0 0 rgba(99,102,241,0)"] }}
+                transition={{ duration: 2, repeat: Infinity, ease: "easeOut" }}
+              />
+            </div>
 
-            <div className="card">
+            <motion.div
+              className="card"
+              whileHover={{ y: -4, boxShadow: "0 12px 32px rgba(99,102,241,0.12)" }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            >
               <div className="flex flex-wrap items-start justify-between gap-2 mb-2">
                 <div>
                   <h3 className="font-bold text-base text-gray-900 dark:text-white">
@@ -47,16 +57,21 @@ export default function Experience() {
                 {job.description}
               </p>
               <div className="flex flex-wrap gap-2">
-                {job.tech.map((t) => (
-                  <span
+                {job.tech.map((t, ti) => (
+                  <motion.span
                     key={t}
-                    className="px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary border border-primary/20"
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: ti * 0.05 }}
+                    whileHover={{ scale: 1.08, y: -1 }}
+                    className="px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary border border-primary/20 cursor-default"
                   >
                     {t}
-                  </span>
+                  </motion.span>
                 ))}
               </div>
-            </div>
+            </motion.div>
           </motion.div>
         ))}
       </div>

@@ -5,6 +5,15 @@ import { FiGithub, FiCheckCircle } from "react-icons/fi";
 import { projects } from "@/data/portfolio";
 import SectionWrapper from "@/components/ui/SectionWrapper";
 
+const featureVariants = {
+  hidden:  {},
+  visible: { transition: { staggerChildren: 0.07 } },
+};
+const featureItem = {
+  hidden:  { opacity: 0, x: -10 },
+  visible: { opacity: 1, x: 0, transition: { type: "spring", stiffness: 180, damping: 20 } },
+};
+
 export default function Projects() {
   return (
     <SectionWrapper
@@ -17,10 +26,15 @@ export default function Projects() {
         {projects.map((project, i) => (
           <motion.div
             key={i}
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.4, delay: i * 0.1 }}
+            transition={{ duration: 0.45, delay: i * 0.12, ease: "easeOut" }}
+            whileHover={{
+              y: -6,
+              boxShadow: "0 20px 40px rgba(99,102,241,0.15)",
+              transition: { type: "spring", stiffness: 300, damping: 20 },
+            }}
             className="card flex flex-col gap-4"
           >
             {/* Title */}
@@ -33,36 +47,48 @@ export default function Projects() {
               </p>
             </div>
 
-            {/* Features */}
-            <ul className="flex flex-col gap-1.5">
+            {/* Features — staggered */}
+            <motion.ul
+              className="flex flex-col gap-1.5"
+              variants={featureVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+            >
               {project.features.map((f, fi) => (
-                <li key={fi} className="flex items-start gap-2 text-xs text-gray-600 dark:text-gray-300">
+                <motion.li
+                  key={fi}
+                  variants={featureItem}
+                  className="flex items-start gap-2 text-xs text-gray-600 dark:text-gray-300"
+                >
                   <FiCheckCircle className="mt-0.5 shrink-0 text-primary" size={13} />
                   {f}
-                </li>
+                </motion.li>
               ))}
-            </ul>
+            </motion.ul>
 
-            {/* Footer: tech tags + GitHub link */}
+            {/* Footer */}
             <div className="mt-auto pt-3 border-t border-gray-100 dark:border-gray-800 flex flex-col gap-3">
               <div className="flex flex-wrap gap-1.5">
                 {project.tech.map((t) => (
-                  <span
+                  <motion.span
                     key={t}
-                    className="px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary border border-primary/20"
+                    whileHover={{ scale: 1.08, y: -1 }}
+                    className="px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary border border-primary/20 cursor-default"
                   >
                     {t}
-                  </span>
+                  </motion.span>
                 ))}
               </div>
-              <a
+              <motion.a
                 href={project.github}
                 target="_blank"
                 rel="noopener noreferrer"
+                whileHover={{ x: 4 }}
                 className="inline-flex items-center gap-1.5 text-xs text-gray-500 hover:text-primary transition-colors font-medium"
               >
                 <FiGithub size={13} /> View on GitHub
-              </a>
+              </motion.a>
             </div>
           </motion.div>
         ))}
