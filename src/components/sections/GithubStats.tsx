@@ -61,8 +61,8 @@ async function fetchGithubData(): Promise<GithubData> {
 
     // REST: profile + repos
     const [userRes, reposRes] = await Promise.all([
-      fetch(`https://api.github.com/users/${USERNAME}`, { headers, next: { revalidate: 3600 } }),
-      fetch(`https://api.github.com/users/${USERNAME}/repos?per_page=100&type=owner`, { headers, next: { revalidate: 3600 } }),
+      fetch(`https://api.github.com/users/${USERNAME}`, { headers, next: { revalidate: 300 } }),
+      fetch(`https://api.github.com/users/${USERNAME}/repos?per_page=100&type=owner`, { headers, next: { revalidate: 300 } }),
     ]);
 
     const user  = userRes.ok  ? await userRes.json()  : {};
@@ -98,7 +98,7 @@ async function fetchGithubData(): Promise<GithubData> {
           query: contributionQuery,
           variables: { username: USERNAME, from: from.toISOString(), to: now.toISOString() },
         }),
-        next: { revalidate: 3600 },
+        next: { revalidate: 300 },
       });
       if (gqlRes.ok) {
         const gql = await gqlRes.json();
