@@ -24,7 +24,6 @@ export const metadata: Metadata = {
   description: siteConfig.description,
   icons: {
     icon: [
-      { url: "/favicon.svg",    type: "image/svg+xml"          },
       { url: "/favicon-512.png", sizes: "512x512", type: "image/png" },
     ],
     apple: { url: "/apple-touch-icon.png", sizes: "180x180" },
