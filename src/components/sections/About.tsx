@@ -18,7 +18,7 @@ const item = {
 export default function About() {
   return (
     <SectionWrapper id="about" label="About Me" heading="Who I Am">
-      <div className="grid md:grid-cols-2 gap-10 items-start">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 items-start">
 
         {/* Bio */}
         <motion.div
@@ -27,7 +27,7 @@ export default function About() {
           viewport={{ once: true }}
           transition={{ duration: 0.5, ease: "easeOut" }}
         >
-          <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-base sm:text-lg whitespace-pre-line">
+          <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-sm sm:text-base lg:text-lg whitespace-pre-line">
             {aboutData.bio}
           </p>
           <motion.div

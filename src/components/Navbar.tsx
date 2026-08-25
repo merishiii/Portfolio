@@ -19,7 +19,6 @@ export default function Navbar() {
     const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", onScroll);
 
-    // Active section tracker
     const sections = navLinks.map((l) => l.href.replace("#", ""));
     const observer = new IntersectionObserver(
       (entries) => {
@@ -38,6 +37,13 @@ export default function Navbar() {
     };
   }, []);
 
+  // Close menu on resize to desktop
+  useEffect(() => {
+    const onResize = () => { if (window.innerWidth >= 768) setMenuOpen(false); };
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+
   return (
     <motion.header
       initial={{ y: -80, opacity: 0 }}
@@ -50,12 +56,12 @@ export default function Navbar() {
           : "bg-transparent"
       )}
     >
-      <nav className="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
+      <nav className="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between h-14 sm:h-16">
         {/* Logo */}
-        <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+        <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="shrink-0">
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="font-bold text-lg tracking-tight text-primary hover:opacity-80 transition-opacity"
+            className="font-bold text-base sm:text-lg tracking-tight text-primary hover:opacity-80 transition-opacity whitespace-nowrap"
           >
             {siteConfig.name.split(" ")[0]}
             <span className="text-gray-900 dark:text-white">
@@ -65,7 +71,7 @@ export default function Navbar() {
         </motion.div>
 
         {/* Desktop links */}
-        <ul className="hidden md:flex items-center gap-6 text-sm font-medium">
+        <ul className="hidden md:flex items-center gap-5 lg:gap-6 text-sm font-medium">
           {navLinks.map((link) => (
             <li key={link.href} className="relative">
               <a
@@ -90,8 +96,8 @@ export default function Navbar() {
           ))}
         </ul>
 
-        {/* Theme toggle + mobile */}
-        <div className="flex items-center gap-2">
+        {/* Theme toggle + hamburger */}
+        <div className="flex items-center gap-1 sm:gap-2 shrink-0">
           {mounted && (
             <motion.button
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
@@ -99,6 +105,7 @@ export default function Navbar() {
               whileHover={{ rotate: 20, scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               className="p-2 rounded-lg text-gray-500 hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              style={{ minWidth: 44, minHeight: 44, display: "flex", alignItems: "center", justifyContent: "center" }}
             >
               <AnimatePresence mode="wait" initial={false}>
                 <motion.span
@@ -119,6 +126,7 @@ export default function Navbar() {
             onClick={() => setMenuOpen((v) => !v)}
             aria-label="Toggle menu"
             whileTap={{ scale: 0.9 }}
+            style={{ minWidth: 44, minHeight: 44, display: "flex", alignItems: "center", justifyContent: "center" }}
           >
             <AnimatePresence mode="wait" initial={false}>
               <motion.span
@@ -136,7 +144,7 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* Mobile menu — animated slide down */}
+      {/* Mobile menu */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
@@ -159,11 +167,12 @@ export default function Navbar() {
                     href={link.href}
                     onClick={() => setMenuOpen(false)}
                     className={cn(
-                      "block py-2 px-2 rounded-lg transition-colors",
+                      "flex items-center py-3 px-3 rounded-lg transition-colors",
                       active === link.href.replace("#", "")
-                        ? "text-primary bg-primary/5"
+                        ? "text-primary bg-primary/5 font-semibold"
                         : "text-gray-600 dark:text-gray-400 hover:text-primary hover:bg-gray-50 dark:hover:bg-gray-900"
                     )}
+                    style={{ minHeight: 44 }}
                   >
                     {link.label}
                   </a>

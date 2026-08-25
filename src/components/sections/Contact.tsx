@@ -27,7 +27,7 @@ export default function Contact() {
 
   return (
     <SectionWrapper id="contact" label="Reach Out" heading="Let's Build Something Great">
-      <div className="grid md:grid-cols-2 gap-12 max-w-4xl mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 max-w-4xl mx-auto">
 
         {/* Left – info */}
         <motion.div
@@ -48,7 +48,7 @@ export default function Contact() {
           >
             <FiMail size={18} /> {siteConfig.email}
           </a>
-          <div className="flex gap-4">
+          <div className="flex flex-wrap gap-3">
             {socials.map(({ Icon, href, label }) => (
               <motion.a
                 key={label}
@@ -128,7 +128,7 @@ export default function Contact() {
                 disabled={state.submitting}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.97 }}
-                className="btn-primary justify-center disabled:opacity-60 disabled:cursor-not-allowed"
+                className="btn-primary w-full justify-center disabled:opacity-60 disabled:cursor-not-allowed"
               >
                 <FiSend size={15} />
                 {state.submitting ? "Sending…" : "Send Message"}

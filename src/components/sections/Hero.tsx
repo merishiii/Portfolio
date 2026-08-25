@@ -41,8 +41,8 @@ const TITLES = [
 ];
 
 function Typewriter() {
-  const [idx, setIdx]       = useState(0);
-  const [text, setText]     = useState("");
+  const [idx, setIdx]           = useState(0);
+  const [text, setText]         = useState("");
   const [deleting, setDeleting] = useState(false);
   const timeout = useRef<ReturnType<typeof setTimeout> | null>(null);
   const reduced = usePrefersReducedMotion();
@@ -51,7 +51,7 @@ function Typewriter() {
     if (reduced) { setText(TITLES[0]); return; }
     const current = TITLES[idx];
     if (!deleting && text === current) {
-      timeout.current = setTimeout(() => setDeleting(true), 4000); // 4s per title
+      timeout.current = setTimeout(() => setDeleting(true), 4000);
     } else if (deleting && text === "") {
       setDeleting(false);
       setIdx((i) => (i + 1) % TITLES.length);
@@ -64,12 +64,12 @@ function Typewriter() {
   }, [text, deleting, idx, reduced]);
 
   return (
-    <span className="text-xl sm:text-2xl font-medium text-gray-600 dark:text-gray-300">
+    <span className="text-base sm:text-xl md:text-2xl font-medium text-gray-600 dark:text-gray-300">
       {text}
       <motion.span
         animate={reduced ? {} : { opacity: [1, 0] }}
         transition={{ repeat: Infinity, duration: 0.6, ease: "linear" }}
-        className="inline-block ml-0.5 w-0.5 h-5 bg-primary align-middle"
+        className="inline-block ml-0.5 w-0.5 h-[1em] bg-primary align-middle"
       />
     </span>
   );
@@ -81,7 +81,7 @@ function Orb({ x, y, size, color, duration }: {
 }) {
   const reduced = usePrefersReducedMotion();
   const mobile  = useIsMobile();
-  if (mobile) return null; // no orbs on mobile — saves battery
+  if (mobile) return null;
   return (
     <motion.div
       aria-hidden
@@ -93,11 +93,11 @@ function Orb({ x, y, size, color, duration }: {
   );
 }
 
-// ── Avatar — single subtle ring, reduced magnetic sensitivity ────────────────
+// ── Avatar ────────────────────────────────────────────────────────────────────
 function Avatar() {
   const x       = useMotionValue(0);
   const y       = useMotionValue(0);
-  const sx      = useSpring(x, { stiffness: 80, damping: 20 }); // reduced stiffness
+  const sx      = useSpring(x, { stiffness: 80, damping: 20 });
   const sy      = useSpring(y, { stiffness: 80, damping: 20 });
   const reduced = usePrefersReducedMotion();
   const mobile  = useIsMobile();
@@ -107,7 +107,7 @@ function Avatar() {
     const rect = e.currentTarget.getBoundingClientRect();
     const cx = rect.left + rect.width / 2;
     const cy = rect.top  + rect.height / 2;
-    x.set((e.clientX - cx) * 0.12); // was 0.25 — 50% less sensitive
+    x.set((e.clientX - cx) * 0.12);
     y.set((e.clientY - cy) * 0.12);
   };
 
@@ -116,12 +116,11 @@ function Avatar() {
       initial={{ opacity: 0, scale: 0.7 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.5, type: "spring", bounce: 0.3 }}
-      className="flex justify-center mb-6"
+      className="flex justify-center mb-5 sm:mb-6"
       onMouseMove={handleMove}
       onMouseLeave={() => { x.set(0); y.set(0); }}
     >
       <div className="relative">
-        {/* Single subtle pulse ring */}
         {!reduced && (
           <motion.div
             className="absolute inset-0 rounded-full bg-primary/15"
@@ -131,7 +130,8 @@ function Avatar() {
         )}
         <motion.div
           style={{ x: sx, y: sy }}
-          className="relative w-28 h-28 rounded-full ring-4 ring-primary/30 overflow-hidden shadow-xl"
+          /* Smaller on mobile (w-20/h-20 = 80px), larger on sm+ */
+          className="relative w-20 h-20 sm:w-28 sm:h-28 rounded-full ring-4 ring-primary/30 overflow-hidden shadow-xl"
         >
           <Image
             src={siteConfig.avatarUrl}
@@ -151,9 +151,15 @@ function AnimatedName({ name }: { name: string }) {
   const reduced = usePrefersReducedMotion();
   const letters = name.split("");
 
+  // fluid clamp: 30px @ 375px → 72px @ 1280px
+  const style = { fontSize: "clamp(1.875rem, 8vw, 4.5rem)" };
+
   if (reduced) {
     return (
-      <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-gray-900 dark:text-white mb-4">
+      <h1
+        style={style}
+        className="font-extrabold tracking-tight text-gray-900 dark:text-white mb-3 sm:mb-4 whitespace-nowrap"
+      >
         {name}
       </h1>
     );
@@ -161,7 +167,8 @@ function AnimatedName({ name }: { name: string }) {
 
   return (
     <motion.h1
-      className="text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-gray-900 dark:text-white mb-4"
+      style={style}
+      className="font-extrabold tracking-tight text-gray-900 dark:text-white mb-3 sm:mb-4 whitespace-nowrap"
       initial="hidden"
       animate="visible"
       variants={{ visible: { transition: { staggerChildren: 0.035, delayChildren: 0.25 } } }}
@@ -183,7 +190,7 @@ function AnimatedName({ name }: { name: string }) {
   );
 }
 
-// ── Scroll indicator — hides after first scroll ──────────────────────────────
+// ── Scroll indicator ──────────────────────────────────────────────────────────
 function ScrollIndicator() {
   const [visible, setVisible] = useState(true);
   const reduced = usePrefersReducedMotion();
@@ -200,7 +207,7 @@ function ScrollIndicator() {
       initial={{ opacity: 0 }}
       animate={{ opacity: visible ? 1 : 0 }}
       transition={{ duration: 0.4 }}
-      className="absolute bottom-8 left-1/2 -translate-x-1/2 text-gray-400 hover:text-primary transition-colors pointer-events-auto"
+      className="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 text-gray-400 hover:text-primary transition-colors pointer-events-auto"
       aria-label="Scroll down"
       style={{ pointerEvents: visible ? "auto" : "none" }}
     >
@@ -229,7 +236,7 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-white via-indigo-50 to-cyan-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950 px-4"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-white via-indigo-50 to-cyan-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950 px-4 sm:px-6"
     >
       {/* Grid */}
       <div
@@ -243,7 +250,7 @@ export default function Hero() {
       <Orb x="52%"  y="4%"  size={180} color="rgba(139,92,246,0.07)"  duration={11} />
       <Orb x="-4%"  y="58%" size={220} color="rgba(99,102,241,0.07)"  duration={8}  />
 
-      <div className="relative z-10 max-w-4xl mx-auto text-center">
+      <div className="relative z-10 w-full max-w-4xl mx-auto text-center px-2">
         <Avatar />
 
         {/* Greeting */}
@@ -251,12 +258,12 @@ export default function Hero() {
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.15, duration: 0.4 }}
-          className="text-primary font-mono text-sm mb-3 tracking-widest uppercase"
+          className="text-primary font-mono text-xs sm:text-sm mb-3 tracking-widest uppercase"
         >
           FULL-STACK DEVELOPER | PROBLEM SOLVER 🚀
         </motion.p>
 
-        {/* Name */}
+        {/* Name — fluid clamp, whitespace-nowrap so it never wraps */}
         <AnimatedName name={siteConfig.name} />
 
         {/* Typewriter */}
@@ -264,7 +271,7 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.75 }}
-          className="mb-6 h-8 flex items-center justify-center"
+          className="mb-5 sm:mb-6 h-7 sm:h-8 flex items-center justify-center"
         >
           <Typewriter />
         </motion.div>
@@ -274,21 +281,21 @@ export default function Hero() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.9, duration: 0.45 }}
-          className="max-w-xl mx-auto text-gray-500 dark:text-gray-400 text-base sm:text-lg mb-10"
+          className="max-w-xl mx-auto text-gray-500 dark:text-gray-400 text-sm sm:text-base lg:text-lg mb-8 sm:mb-10 leading-relaxed"
         >
           {siteConfig.description}
         </motion.p>
 
-        {/* CTA buttons */}
+        {/* CTA buttons — stack on mobile, row on sm+ */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.0, duration: 0.4 }}
-          className="flex flex-wrap justify-center gap-4 mb-12"
+          className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 mb-10 sm:mb-12 px-4 sm:px-0"
         >
           <motion.a
             href="#projects"
-            className="btn-primary"
+            className="btn-primary w-full sm:w-auto"
             whileHover={reduced ? {} : { scale: 1.04, boxShadow: "0 6px 20px rgba(99,102,241,0.30)" }}
             whileTap={{ scale: 0.97 }}
           >
@@ -296,7 +303,7 @@ export default function Hero() {
           </motion.a>
           <motion.a
             href="#contact"
-            className="btn-outline"
+            className="btn-outline w-full sm:w-auto"
             whileHover={reduced ? {} : { scale: 1.04 }}
             whileTap={{ scale: 0.97 }}
           >
@@ -309,7 +316,7 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.1 }}
-          className="flex justify-center gap-5"
+          className="flex justify-center gap-3 sm:gap-5"
         >
           {socials.map(({ Icon, href, label }, i) => (
             <motion.a
@@ -323,7 +330,8 @@ export default function Hero() {
               transition={{ delay: 1.1 + i * 0.08 }}
               whileHover={reduced ? {} : { scale: 1.18, y: -3 }}
               whileTap={{ scale: 0.92 }}
-              className="p-2 rounded-lg text-gray-500 hover:text-primary hover:bg-primary/10 transition-colors"
+              className="p-2.5 rounded-lg text-gray-500 hover:text-primary hover:bg-primary/10 transition-colors"
+              style={{ minWidth: 44, minHeight: 44, display: "inline-flex", alignItems: "center", justifyContent: "center" }}
             >
               <Icon size={20} />
             </motion.a>

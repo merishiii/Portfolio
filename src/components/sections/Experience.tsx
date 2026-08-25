@@ -13,7 +13,7 @@ export default function Experience() {
       heading="Work Experience"
       className="bg-gray-50 dark:bg-gray-900/50"
     >
-      <div className="relative border-l-2 border-primary/30 ml-3 pl-8 space-y-10">
+      <div className="relative border-l-2 border-primary/30 ml-2 sm:ml-3 pl-6 sm:pl-8 space-y-8 sm:space-y-10">
         {experience.map((job, i) => (
           <motion.div
             key={i}
@@ -24,7 +24,7 @@ export default function Experience() {
             className="relative"
           >
             {/* Timeline dot — pulses only for the current/first role */}
-            <div className="absolute -left-[2.85rem] top-1">
+            <div className="absolute -left-[2.6rem] sm:-left-[2.85rem] top-1">
               <motion.span
                 className="block w-4 h-4 rounded-full bg-primary ring-4 ring-white dark:ring-gray-950"
                 animate={
@@ -42,24 +42,24 @@ export default function Experience() {
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
             >
               {/* ── Header ── */}
-              <div className="flex flex-wrap items-start justify-between gap-3 mb-4">
+              <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 sm:gap-3 mb-4">
                 {/* Left: company + role */}
                 <div className="flex flex-col gap-0.5">
                   <p className="text-primary font-semibold text-sm tracking-wide uppercase">
                     {job.company}
                   </p>
-                  <h3 className="font-bold text-lg text-gray-900 dark:text-white leading-snug">
+                  <h3 className="font-bold text-base sm:text-lg text-gray-900 dark:text-white leading-snug">
                     {job.role}
                   </h3>
                 </div>
 
                 {/* Right: period + location */}
-                <div className="flex flex-col items-end gap-1 shrink-0">
-                  <span className="inline-flex items-center gap-1.5 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-800 px-2.5 py-1 rounded-full">
+                <div className="flex flex-row sm:flex-col sm:items-end gap-2 sm:gap-1 flex-wrap">
+                  <span className="inline-flex items-center gap-1.5 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-800 px-2.5 py-1 rounded-full whitespace-nowrap">
                     <FiBriefcase size={11} />
                     {job.period}
                   </span>
-                  <span className="inline-flex items-center gap-1.5 text-xs text-gray-400 dark:text-gray-500">
+                  <span className="inline-flex items-center gap-1.5 text-xs text-gray-400 dark:text-gray-500 whitespace-nowrap">
                     <FiMapPin size={11} />
                     {job.location}
                   </span>
