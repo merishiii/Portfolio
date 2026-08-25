@@ -23,9 +23,9 @@ const USERNAME = "merishiii";
 const GH_GRAPHQL = "https://api.github.com/graphql";
 
 const contributionQuery = `
-  query($username: String!) {
+  query($username: String!, $from: DateTime!, $to: DateTime!) {
     user(login: $username) {
-      contributionsCollection {
+      contributionsCollection(from: $from, to: $to) {
         contributionCalendar {
           totalContributions
           weeks {
@@ -88,10 +88,16 @@ async function fetchGithubData(): Promise<GithubData> {
     let totalContributions = 0, commits = 0, prs = 0, issues = 0;
 
     if (token) {
+      const now = new Date();
+      const from = new Date(now);
+      from.setFullYear(from.getFullYear() - 1);
       const gqlRes = await fetch(GH_GRAPHQL, {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: `bearer ${token}` },
-        body: JSON.stringify({ query: contributionQuery, variables: { username: USERNAME } }),
+        body: JSON.stringify({
+          query: contributionQuery,
+          variables: { username: USERNAME, from: from.toISOString(), to: now.toISOString() },
+        }),
         next: { revalidate: 3600 },
       });
       if (gqlRes.ok) {
