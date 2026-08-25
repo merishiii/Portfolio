@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import type { GithubData } from "./GithubStats";
 
@@ -12,7 +13,6 @@ function buildGrid(calendar: { date: string; count: number }[]) {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
-  // rewind to the nearest Sunday (end of last complete week)
   const endSunday = new Date(today);
   endSunday.setDate(today.getDate() - today.getDay());
 
@@ -58,7 +58,6 @@ function cellColor(count: number) {
   return "bg-violet-600 dark:bg-violet-400";
 }
 
-// Language colour map (best-effort)
 const LANG_COLORS: Record<string, string> = {
   TypeScript: "#3178c6",
   JavaScript: "#f1e05a",
@@ -80,9 +79,95 @@ const LANG_COLORS: Record<string, string> = {
 
 const DAYS = ["S", "M", "T", "W", "T", "F", "S"];
 
+// ── skeleton ──────────────────────────────────────────────────────────────────
+
+function Skeleton({ className }: { className?: string }) {
+  return (
+    <div className={`animate-pulse rounded bg-gray-200 dark:bg-gray-700 ${className ?? ""}`} />
+  );
+}
+
+function LoadingSkeleton() {
+  return (
+    <div className="flex flex-col gap-8">
+      {/* stat cards */}
+      <div className="grid grid-cols-3 sm:grid-cols-6 gap-3">
+        {Array.from({ length: 6 }).map((_, i) => (
+          <div key={i} className="rounded-2xl p-4 border border-gray-100 dark:border-gray-800 bg-gray-50 dark:bg-gray-800/40 flex flex-col items-center gap-2">
+            <Skeleton className="h-7 w-10" />
+            <Skeleton className="h-3 w-16" />
+          </div>
+        ))}
+      </div>
+      {/* middle row */}
+      <div className="grid md:grid-cols-3 gap-6">
+        <div className="card md:col-span-2 p-5 flex flex-col gap-4">
+          <Skeleton className="h-4 w-28" />
+          {Array.from({ length: 4 }).map((_, i) => (
+            <div key={i} className="flex flex-col gap-1">
+              <div className="flex justify-between">
+                <Skeleton className="h-3 w-24" />
+                <Skeleton className="h-3 w-12" />
+              </div>
+              <Skeleton className="h-1.5 w-full" />
+            </div>
+          ))}
+        </div>
+        <div className="flex flex-col gap-4">
+          {Array.from({ length: 2 }).map((_, i) => (
+            <div key={i} className="card p-5 flex-1 flex flex-col items-center justify-center gap-2">
+              <Skeleton className="h-9 w-12" />
+              <Skeleton className="h-3 w-20" />
+            </div>
+          ))}
+        </div>
+      </div>
+      {/* heatmap */}
+      <div className="card p-5">
+        <div className="flex justify-between mb-4">
+          <Skeleton className="h-4 w-36" />
+          <Skeleton className="h-3 w-32" />
+        </div>
+        <Skeleton className="h-24 w-full" />
+      </div>
+    </div>
+  );
+}
+
 // ── component ─────────────────────────────────────────────────────────────────
 
-export default function GithubClient({ data }: { data: GithubData }) {
+export default function GithubClient() {
+  const [data, setData] = useState<GithubData | null>(null);
+  const [error, setError] = useState(false);
+
+  useEffect(() => {
+    fetch("/api/github")
+      .then((r) => {
+        if (!r.ok) throw new Error(`fetch failed: ${r.status}`);
+        return r.json();
+      })
+      .then((json: GithubData & { _debug?: string[] }) => {
+        if (json._debug) {
+          console.log("[GitHub API debug]", json._debug);
+        }
+        setData(json);
+      })
+      .catch((e) => {
+        console.error("[GitHub API error]", e);
+        setError(true);
+      });
+  }, []);
+
+  if (error) {
+    return (
+      <div className="card p-6 text-center text-sm text-gray-400 dark:text-gray-500">
+        Failed to load GitHub data. Please try again later.
+      </div>
+    );
+  }
+
+  if (!data) return <LoadingSkeleton />;
+
   const {
     followers, following, publicRepos, totalStars,
     totalContributions, commits, prs, issues,
@@ -90,12 +175,12 @@ export default function GithubClient({ data }: { data: GithubData }) {
   } = data;
 
   const statCards = [
-    { label: "Repositories",   value: publicRepos,        color: "text-indigo-500 dark:text-indigo-400",  bg: "bg-indigo-50 dark:bg-indigo-950/40" },
-    { label: "Stars Earned",   value: totalStars,         color: "text-amber-500 dark:text-amber-400",    bg: "bg-amber-50 dark:bg-amber-950/40" },
-    { label: "Followers",      value: followers,          color: "text-emerald-500 dark:text-emerald-400",bg: "bg-emerald-50 dark:bg-emerald-950/40" },
-    { label: "Following",      value: following,          color: "text-cyan-500 dark:text-cyan-400",      bg: "bg-cyan-50 dark:bg-cyan-950/40" },
-    { label: "Contributions",  value: totalContributions, color: "text-violet-500 dark:text-violet-400",  bg: "bg-violet-50 dark:bg-violet-950/40" },
-    { label: "Commits",        value: commits,            color: "text-rose-500 dark:text-rose-400",      bg: "bg-rose-50 dark:bg-rose-950/40" },
+    { label: "Repositories",  value: publicRepos,        color: "text-indigo-500 dark:text-indigo-400",   bg: "bg-indigo-50 dark:bg-indigo-950/40" },
+    { label: "Stars Earned",  value: totalStars,         color: "text-amber-500 dark:text-amber-400",     bg: "bg-amber-50 dark:bg-amber-950/40" },
+    { label: "Followers",     value: followers,          color: "text-emerald-500 dark:text-emerald-400", bg: "bg-emerald-50 dark:bg-emerald-950/40" },
+    { label: "Following",     value: following,          color: "text-cyan-500 dark:text-cyan-400",       bg: "bg-cyan-50 dark:bg-cyan-950/40" },
+    { label: "Contributions", value: totalContributions, color: "text-violet-500 dark:text-violet-400",   bg: "bg-violet-50 dark:bg-violet-950/40" },
+    { label: "Commits",       value: commits,            color: "text-rose-500 dark:text-rose-400",       bg: "bg-rose-50 dark:bg-rose-950/40" },
   ];
 
   const activityCards = [
@@ -103,9 +188,9 @@ export default function GithubClient({ data }: { data: GithubData }) {
     { label: "Issues Opened", value: issues, color: "text-orange-500" },
   ];
 
-  const weeks     = buildGrid(calendar);
-  const mLabels   = monthLabels(weeks);
-  const maxLang   = Math.max(...topLanguages.map((l) => l.count), 1);
+  const weeks   = buildGrid(calendar);
+  const mLabels = monthLabels(weeks);
+  const maxLang = Math.max(...topLanguages.map((l) => l.count), 1);
 
   return (
     <div className="flex flex-col gap-8">
@@ -113,8 +198,7 @@ export default function GithubClient({ data }: { data: GithubData }) {
       {/* ── Stat cards ── */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
+        animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
         className="grid grid-cols-3 sm:grid-cols-6 gap-3"
       >
@@ -122,8 +206,7 @@ export default function GithubClient({ data }: { data: GithubData }) {
           <motion.div
             key={s.label}
             initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
+            animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: i * 0.06, duration: 0.3 }}
             className={`rounded-2xl p-4 text-center ${s.bg} border border-gray-100 dark:border-gray-800`}
           >
@@ -136,12 +219,10 @@ export default function GithubClient({ data }: { data: GithubData }) {
       {/* ── Middle row: Top Languages + PR/Issues ── */}
       <div className="grid md:grid-cols-3 gap-6">
 
-        {/* Top Languages */}
         {topLanguages.length > 0 && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             className="card md:col-span-2 p-5"
           >
@@ -150,14 +231,13 @@ export default function GithubClient({ data }: { data: GithubData }) {
             </p>
             <div className="flex flex-col gap-3">
               {topLanguages.map(({ lang, count }, i) => {
-                const pct = Math.round((count / maxLang) * 100);
+                const pct   = Math.round((count / maxLang) * 100);
                 const color = LANG_COLORS[lang] ?? "#6366f1";
                 return (
                   <motion.div
                     key={lang}
                     initial={{ opacity: 0, x: -16 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
+                    animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: i * 0.07, duration: 0.35 }}
                   >
                     <div className="flex justify-between text-xs mb-1">
@@ -173,8 +253,7 @@ export default function GithubClient({ data }: { data: GithubData }) {
                     <div className="h-1.5 w-full rounded-full bg-gray-100 dark:bg-gray-800 overflow-hidden">
                       <motion.div
                         initial={{ width: 0 }}
-                        whileInView={{ width: `${pct}%` }}
-                        viewport={{ once: true }}
+                        animate={{ width: `${pct}%` }}
                         transition={{ delay: i * 0.07 + 0.2, duration: 0.5, ease: "easeOut" }}
                         className="h-full rounded-full"
                         style={{ backgroundColor: color }}
@@ -190,8 +269,7 @@ export default function GithubClient({ data }: { data: GithubData }) {
         {/* PR + Issues mini cards */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
           className="flex flex-col gap-4"
         >
@@ -211,8 +289,7 @@ export default function GithubClient({ data }: { data: GithubData }) {
       {hasCalendar ? (
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.15 }}
           className="card p-5 overflow-x-auto"
         >
