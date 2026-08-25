@@ -1,3 +1,5 @@
+export const revalidate = 300; // re-fetch all server components every 5 minutes
+
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Hero from "@/components/sections/Hero";

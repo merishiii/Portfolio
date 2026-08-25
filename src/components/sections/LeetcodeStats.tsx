@@ -66,7 +66,7 @@ async function fetchLeetData(): Promise<LeetData> {
         Referer: "https://leetcode.com",
       },
       body: JSON.stringify({ query, variables: { username: USERNAME } }),
-      next: { revalidate: 3600 },
+      cache: "no-store",
     });
 
     if (!res.ok) return fallback;
