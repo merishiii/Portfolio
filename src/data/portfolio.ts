@@ -97,7 +97,7 @@ export const experience = [
   {
     role: "Software Engineer",
     company: "HCL Technologies",
-    period: "Oct 2024 – Present",
+    period: "Oct 2024 – Jul 2026",
     location: "Lucknow, India",
     description:
       "Developed and maintained scalable React.js applications using component-based architecture, reusable UI components, hooks, and state management techniques to deliver responsive and high-performance user experiences. Designed and implemented frontend modules with REST API integration, enabling seamless communication between client-side applications, backend services, and enterprise systems. Optimized application performance through code splitting, lazy loading, memoization, efficient state updates, and browser rendering optimizations. Participated in Agile development practices including sprint planning, backlog refinement, code reviews, unit testing, CI/CD deployments, and technical design discussions.",
