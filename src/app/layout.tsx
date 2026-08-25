@@ -20,7 +20,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: `${siteConfig.name} | ${siteConfig.title}`,
+  title: `${siteConfig.name} | Portfolio`,
   description: siteConfig.description,
   icons: {
     icon: [
@@ -29,13 +29,13 @@ export const metadata: Metadata = {
     apple: { url: "/apple-touch-icon.png", sizes: "180x180" },
   },
   openGraph: {
-    title: `${siteConfig.name} | ${siteConfig.title}`,
+    title: `${siteConfig.name} | Portfolio`,
     description: siteConfig.description,
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: `${siteConfig.name} | ${siteConfig.title}`,
+    title: `${siteConfig.name} | Portfolio`,
     description: siteConfig.description,
   },
 };
