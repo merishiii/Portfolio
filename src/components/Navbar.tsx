@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
 import { HiSun, HiMoon, HiMenuAlt3, HiX } from "react-icons/hi";
@@ -54,15 +53,15 @@ export default function Navbar() {
       <nav className="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
         {/* Logo */}
         <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-          <Link
-            href="#"
+          <button
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
             className="font-bold text-lg tracking-tight text-primary hover:opacity-80 transition-opacity"
           >
             {siteConfig.name.split(" ")[0]}
             <span className="text-gray-900 dark:text-white">
               .{siteConfig.name.split(" ")[1]?.charAt(0) ?? "dev"}
             </span>
-          </Link>
+          </button>
         </motion.div>
 
         {/* Desktop links */}
