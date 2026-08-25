@@ -24,7 +24,7 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+Open [https://rishabh-pathak.vercel.app/](https://rishabh-pathak.vercel.app/).
 
 ## ✏️ Personalisation
 
