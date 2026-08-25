@@ -89,18 +89,28 @@ export const experience = [
     role: "Application Developer – Java & Web Technologies",
     company: "IBM",
     period: "July 2026 – Present",
-    location: "India",
-    description:
-      "Working with Java and web technologies to develop and maintain enterprise applications. Applying object-oriented programming and software engineering principles. Participating in development, testing, debugging, and troubleshooting. Collaborating in an Agile environment to build scalable, maintainable, and reliable software solutions.",
+    location: "Bangalore, India",
+    bullets: [
+      "Engineering and maintaining enterprise-grade applications using Java and modern web technologies.",
+      "Designing and developing scalable backend services and RESTful APIs focused on performance, reliability, and clean architecture.",
+      "Troubleshooting production and development issues, improving application stability and debugging complex workflows.",
+      "Collaborating with cross-functional teams in an Agile environment to deliver maintainable features and high-quality software releases.",
+      "Applying software engineering best practices including code quality, modular design, testing, and version control.",
+    ],
     tech: ["Java", "Spring Boot", "REST APIs", "Web Technologies", "Agile", "Git"],
   },
   {
-    role: "Software Engineer",
+    role: "Analyst",
     company: "HCL Technologies",
     period: "Oct 2024 – Jul 2026",
     location: "Lucknow, India",
-    description:
-      "Developed and maintained scalable React.js applications using component-based architecture, reusable UI components, hooks, and state management techniques to deliver responsive and high-performance user experiences. Designed and implemented frontend modules with REST API integration, enabling seamless communication between client-side applications, backend services, and enterprise systems. Optimized application performance through code splitting, lazy loading, memoization, efficient state updates, and browser rendering optimizations. Participated in Agile development practices including sprint planning, backlog refinement, code reviews, unit testing, CI/CD deployments, and technical design discussions.",
+    bullets: [
+      "Built and maintained responsive React.js applications using reusable components, hooks, and modern frontend architecture patterns.",
+      "Integrated frontend systems with REST APIs to enable seamless communication across client and backend services.",
+      "Optimized application performance through lazy loading, code splitting, memoization, and efficient state management.",
+      "Contributed to Agile development workflows including sprint planning, backlog refinement, code reviews, and release support.",
+      "Supported testing, deployment, and CI/CD practices to ensure reliable delivery and smooth production rollouts.",
+    ],
     tech: ["React.js", "JavaScript", "REST APIs", "Hooks", "State Management", "CI/CD", "Agile"],
   },
 ];
