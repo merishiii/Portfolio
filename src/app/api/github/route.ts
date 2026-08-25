@@ -28,10 +28,6 @@ const contributionQuery = `
 
 export async function GET() {
   const token = process.env.GITHUB_TOKEN ?? "";
-  const debug: string[] = [];
-
-  debug.push(`token_present: ${!!token}`);
-  debug.push(`token_length: ${token.length}`);
 
   const headers: Record<string, string> = {
     Accept: "application/vnd.github+json",
@@ -52,24 +48,10 @@ export async function GET() {
       }),
     ]);
 
-    debug.push(`user_status: ${userRes.status}`);
-    debug.push(`repos_status: ${reposRes.status}`);
-
-    if (userRes.ok) {
-      user = await userRes.json();
-    } else {
-      const errText = await userRes.text();
-      debug.push(`user_error: ${errText.slice(0, 200)}`);
-    }
-
-    if (reposRes.ok) {
-      repos = await reposRes.json();
-    } else {
-      const errText = await reposRes.text();
-      debug.push(`repos_error: ${errText.slice(0, 200)}`);
-    }
-  } catch (e) {
-    debug.push(`rest_exception: ${String(e)}`);
+    if (userRes.ok) user = await userRes.json();
+    if (reposRes.ok) repos = await reposRes.json();
+  } catch {
+    // REST failed — fall through with empty defaults
   }
 
   const totalStars = Array.isArray(repos)
@@ -108,24 +90,13 @@ export async function GET() {
         },
         body: JSON.stringify({
           query: contributionQuery,
-          variables: {
-            username: USERNAME,
-            from: from.toISOString(),
-            to: now.toISOString(),
-          },
+          variables: { username: USERNAME, from: from.toISOString(), to: now.toISOString() },
         }),
         cache: "no-store",
       });
 
-      debug.push(`gql_status: ${gqlRes.status}`);
-
       if (gqlRes.ok) {
         const gql = await gqlRes.json();
-
-        if (gql.errors) {
-          debug.push(`gql_errors: ${JSON.stringify(gql.errors).slice(0, 300)}`);
-        }
-
         const col = gql?.data?.user?.contributionsCollection;
         if (col) {
           totalContributions = col.contributionCalendar?.totalContributions ?? 0;
@@ -138,20 +109,11 @@ export async function GET() {
               calendar.push({ date: day.date, count: day.contributionCount });
             }
           }
-          debug.push(`calendar_days: ${calendar.length}`);
-          debug.push(`total_contributions: ${totalContributions}`);
-        } else {
-          debug.push(`gql_no_col: ${JSON.stringify(gql).slice(0, 300)}`);
         }
-      } else {
-        const errText = await gqlRes.text();
-        debug.push(`gql_error_body: ${errText.slice(0, 300)}`);
       }
-    } catch (e) {
-      debug.push(`gql_exception: ${String(e)}`);
+    } catch {
+      // GraphQL failed — calendar stays empty, REST stats still returned
     }
-  } else {
-    debug.push("gql_skipped: no token");
   }
 
   return NextResponse.json({
@@ -167,6 +129,5 @@ export async function GET() {
     issues,
     calendar,
     hasCalendar: calendar.length > 0,
-    _debug: debug,
   });
 }

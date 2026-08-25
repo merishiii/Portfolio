@@ -146,16 +146,8 @@ export default function GithubClient() {
         if (!r.ok) throw new Error(`fetch failed: ${r.status}`);
         return r.json();
       })
-      .then((json: GithubData & { _debug?: string[] }) => {
-        if (json._debug) {
-          console.log("[GitHub API debug]", json._debug);
-        }
-        setData(json);
-      })
-      .catch((e) => {
-        console.error("[GitHub API error]", e);
-        setError(true);
-      });
+      .then((json: GithubData) => setData(json))
+      .catch(() => setError(true));
   }, []);
 
   if (error) {
